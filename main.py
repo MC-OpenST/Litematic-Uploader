@@ -56,7 +56,7 @@ def ensure_gitignore():
 
 def load_cfg():
     if not os.path.exists(CFG):
-        return {"repo": "", "token": "", "tags": ["SIS无实体输入", "高度模块化", "单人可建", "生存友好", "1.17+"]}
+        return {"repo": "", "token": "", "tags": ['大宗','空盒仓库','MIS多物品分类','MBS多种类潜影盒分类','细雪展示','SIS无实体输入','编码相关','远程大宗','不可堆叠分类','打包机','混杂打包','自适应打包机','地狱门加载器','分盒器','盒子分类','盒子合并','红石合成站','解码器','潜影盒展示','四边形大宗','整流器','仓库成品']}
     with open(CFG, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -303,3 +303,4 @@ class App(tk.Tk):
 # ---------------- 入口 ----------------
 if __name__ == "__main__":
     App().mainloop()
+
