@@ -64,6 +64,7 @@ def save_cfg(data):
     with open(CFG, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
+
 def ensure_repo(repo_url, token):
     os.makedirs(GIT_DIR, exist_ok=True)
     run(["git", "init"], cwd=GIT_DIR)
@@ -110,6 +111,19 @@ def bind_scroll(canvas):
 
 # ---------------- GUI ----------------
 class App(tk.Tk):
+    def reset_form(self):
+        # 清空名称
+        self.name_entry.delete(0, tk.END)
+
+        # 清空文件选择
+        self.litematics = []
+        self.image = ""
+        self.update_hint()
+
+        # 取消所有标签勾选
+        for v in self.tag_vars.values():
+            v.set(False)
+
     def __init__(self):
         super().__init__()
         self.title("Litematic Uploader v0.3.2")
@@ -252,8 +266,11 @@ class App(tk.Tk):
     def upload(self):
         try:
             name = self.name_entry.get().strip()
-            if not name or not self.litematics:
-                raise RuntimeError("请填写名称并选择 litematic 文件")
+            if not name:
+                raise RuntimeError("请填写名称")
+
+            if not self.litematics and not self.image:
+                raise RuntimeError("请至少选择一个 litematic 或一张图片")
             repo = self.repo_entry.get().strip()
             token = self.token_entry.get().strip()
             if not repo or not token:
@@ -295,6 +312,8 @@ class App(tk.Tk):
 
             self.status.config(text="完成")
             messagebox.showinfo("成功", f"上传完成：{base_name}")
+            self.reset_form()
+
 
         except Exception as e:
             messagebox.showerror("失败", str(e))
@@ -303,4 +322,3 @@ class App(tk.Tk):
 # ---------------- 入口 ----------------
 if __name__ == "__main__":
     App().mainloop()
-
