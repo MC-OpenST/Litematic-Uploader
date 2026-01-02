@@ -1,5 +1,4 @@
 # Litematic-Uploader
-# Litematic Uploader
 
 一个基于python写的小工具
 ----------------------------
